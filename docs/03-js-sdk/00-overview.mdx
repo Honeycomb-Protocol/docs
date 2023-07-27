@@ -1,0 +1,66 @@
+# Overview
+
+Honeycomb is a protocol that provides SDKs and APIs for game developers on the Solana blockchain. This guide will walk you through the necessary steps to set up and integrate Honeycomb into your game development project.
+
+## **Prerequisites**
+
+To get started with Honeycomb, you need to install the Honeycomb SDK package using
+
+```bash
+npm install @solana/web3.js @honeycomb-protocol/hive-control
+```
+
+OR
+
+```bash
+yarn add @solana/web3.js @honeycomb-protocol/hive-control
+```
+
+[Node Package](https://www.npmjs.com/package/@honeycomb-protocol/hive-control)
+
+[API Reference](https://typedoc.honeycombprotocol.com/modules/_honeycomb_protocol_hive_control.html)
+
+## Getting Started
+
+After installing the Honeycomb SDK, you can initialize the [Honeycomb](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.Honeycomb.html) object with a Solana [Connection](https://solana-labs.github.io/solana-web3.js/classes/Connection.html) object. The Solana connection object allows you to interact with the Solana blockchain.
+
+```typescript
+import * as web3 from "@solana/web3.js";
+import { Honeycomb } from "@honeycomb-protocol/hive-control";
+
+const honeycomb = new Honeycomb(
+  new web3.Connection("https://api.mainnet-beta.solana.com")
+);
+```
+
+## Modules
+
+Honeycomb is a modular blockchain development framework designed for building decentralized applications (dApps) on the Solana blockchain. With its extensible and developer-friendly architecture, developers can easily mix and match built-in and custom modules to tailor their dApp development experience. Honeycomb abstracts away complexities, providing a scalable, secure, and intuitive solution for creating innovative blockchain applications.
+
+<table data-card-size="large" data-view="cards">
+  <tbody>
+    {/* <tr>
+      <td>Honeycomb Project</td>
+      <td>
+        <a href="project.md">project.md</a>
+      </td>
+    </tr> */}
+    <tr>
+      <td>
+        <a href="identity">Identity</a>
+      </td>
+      <td>
+        <a href="rpc">RPC</a>
+      </td>
+      <td>
+        <a href="storage">Storage</a>
+      </td>
+      <td>
+        <a href="http">HTTP</a>
+      </td>
+      <td>
+        <a href="others">Others</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

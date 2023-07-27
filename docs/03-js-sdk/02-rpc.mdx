@@ -1,0 +1,70 @@
+# RPC
+
+The [RpcClient](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.RpcClient.html) module provides an easy-to-use interface for interacting with the Solana RPC using the [@solana/web3.js](https://solana-labs.github.io/solana-web3.js/modules.html) library. It facilitates transaction preparation, sending, and confirmation, along with other utility functions for working with accounts and program accounts. This module is intended to be integrated into the Honeycomb Protocol, enabling developers to seamlessly interact with the platform's decentralized services.
+
+## Dependencies
+
+```typescript
+import * as web3 from "@solana/web3.js";
+import { Honeycomb } from "@honeycomb-protocol/web3.js";
+
+const honeycomb = new Honeycomb(
+  new web3.Connection("https://api.mainnet-beta.solana.com")
+);
+```
+
+## Operation
+
+The [Operation](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.Operation.html) class is a fundamental building block of the RpcClient module, designed to represent a collection of Solana blockchain transactions and associated signers that need to be executed together as an atomic operation. It simplifies the process of preparing, sending, and confirming transactions while managing the signers and accounts involved in the process.
+
+**Note:** operations are run with respect to the provided honeycomb instance so eventually it will be signed by the `honeycomb.identity()`
+
+```typescript
+const instructions: TransactionInstruction[] = [...]
+const signers: KeypairLike[] = [...]
+
+const operation = new Operation(honeycomb, instructions, signers);
+
+const confirmedContext = await operation.send();
+if (
+  "confirmationFailed" in confirmedContext.confirmResponse &&
+  confirmedContext.confirmResponse.confirmationFailed
+)
+  console.error(
+    confirmedContext.confirmResponse.error?.message ||
+      "Transaction confirmation failed",
+    confirmedContext.confirmResponse.error
+  );
+
+console.log("Tx Signature:", confirmedContext.signature);
+```
+
+#### References
+
+- [TransactionInstruction](https://solana-labs.github.io/solana-web3.js/classes/TransactionInstruction.html)
+- [KeypairLike](https://typedoc.honeycombprotocol.com/types/_honeycomb_protocol_hive_control.KeypairLike.html)
+- [Operation](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.Operation.html)
+
+## RPC Methods
+
+Particularly the RPC methods are as follows:
+
+```typescript
+// Prepared Operation
+const contexts = [ operation.context ];
+
+// Send And Confirm Transaction
+const confirmedContexts = await honeycomb.rpc().sendAndConfirmTransaction(contexts);
+
+// Send And Confirm Breakdown
+const preparedContexts = await honeycomb.rpc().prepareTransactions(contexts);
+const processedContexts = await honeycomb.rpc().sendTransactions(preparedContexts);
+const confirmedContexts = await honeycomb.rpc().confirmTransactions(processedContexts);
+
+// Basic Methods
+const confirmedContext = await honeycomb.rpc().transfer(new PublicKey(...), 1_000_000_000);
+const signature = await honeycomb.rpc().airdrop(new PublicKey(...), 1_000_000_000);
+const accountInfo = await honeycomb.rpc().getAccount(new PublicKey(...));
+const accountExists = await honeycomb.rpc().accountExists(new PublicKey(...));
+const accountInfos = await honeycomb.rpc().getMultipleAccounts([ new PublicKey(...) ]);
+```

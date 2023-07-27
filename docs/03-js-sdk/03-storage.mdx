@@ -1,0 +1,27 @@
+# Storage
+
+The [BundlrClient](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.BundlrClient.html) is a module designed to handle file uploads and downloads using the Bundlr network. It extends the abstract [StorageModule](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.StorageModule.html) class and provides implementations for various storage-related functionalities. The module integrates with the Bundlr network to manage the cost of uploading files and enables easy retrieval of files using the provided URIs.
+
+```typescript
+const bundlr = await honeycomb.storage().bundlr();
+
+// Uploading Files
+const file = fs.readFileSync(...);
+const honeycombFile = toHoneycombFile(file, "...");
+const cost = await honeycomb.storage().getUploadPriceForFile(honeycombFile);
+await bundlr.fund(cost.basisPoints.toNumber());
+const fileUri = await honeycomb.storage().upload(honeycombFile);
+
+// Download File
+const fileDownloaded = await honeycomb.storage().download(fileUri);
+
+// Uploading JSON
+const json = {...};
+const cost = await honeycomb.storage().getUploadPriceForBytes(bytesOf(json));
+await bundlr.fund(cost.basisPoints.toNumber());
+const jsonUri = await honeycomb.storage().uploadJson(json);
+
+// Download JSON
+const jsonDownloaded = await honeycomb.storage().downloadJson(jsonUri);
+
+```

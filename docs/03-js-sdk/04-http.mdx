@@ -1,0 +1,28 @@
+# HTTP
+
+The [HttpClient](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.HttpClient.html) module is designed to facilitate making HTTP requests using Axios or Fetch. It extends the abstract [HttpModule](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.HttpModule.html) class and provides implementations for various HTTP-related functionalities. The module allows customization of request headers and provides methods to make GET, POST, PUT, and DELETE requests.
+
+```typescript
+// Make a GET request
+honeycomb
+  .http()
+  .get("/users", { authToken: "myAuthToken" })
+  .then((response) => {
+    console.log("GET Response:", response);
+  })
+  .catch((error) => {
+    console.error("GET Error:", error);
+  });
+
+// Make a POST request
+const userData = { name: "John Doe", email: "john@example.com" };
+honeycomb
+  .http()
+  .post("/users", { data: userData })
+  .then((response) => {
+    console.log("POST Response:", response);
+  })
+  .catch((error) => {
+    console.error("POST Error:", error);
+  });
+```

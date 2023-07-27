@@ -1,0 +1,86 @@
+# Identity
+
+The Identity Module is a crucial component of the Honeycomb system that enables users to manage their identities and profiles on the Solana blockchain. It facilitates secure authentication, transaction signing, and interaction with various decentralized applications (dApps) on the Solana network. The Identity Module allows users to create, store, and manage cryptographic keys, also known as identities, which are essential for conducting secure transactions and interactions on the blockchain.
+
+[API Reference](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.IdentityClient.html)
+
+## Getting Started
+
+By default, the `guestIdentity` method is used, which creates a guest identity with a default public key and an empty secret key. Let's go through different types of identities.
+
+### Dependencies
+
+```typescript
+import * as web3 from "@solana/web3.js";
+import {
+  Honeycomb,
+  guestIdentity,
+  keypairIdentity,
+  walletIdentity,
+} from "@honeycomb-protocol/web3.js";
+
+const honeycomb = new Honeycomb(
+  new web3.Connection("https://api.mainnet-beta.solana.com")
+);
+```
+
+### Guest Identity
+
+[guestIdentity](https://typedoc.honeycombprotocol.com/functions/_honeycomb_protocol_hive_control.guestIdentity.html) is the default identity which is used as a placeholder until a keypair or wallet is registered with the Honeycomb Instance.
+
+```typescript
+honeycomb.use(guestIdentity());
+```
+
+### Keypair Identity
+
+Use [keypairIdentity](https://typedoc.honeycombprotocol.com/functions/_honeycomb_protocol_hive_control.keypairIdentity.html) to register a Solana [Keypair](https://solana-labs.github.io/solana-web3.js/classes/Keypair.html) as identity.
+
+```typescript
+const keypair = web3.Keypair.generate();
+
+honeycomb.use(keypairIdentity(keypair));
+```
+
+### Wallet Identity
+
+Use [walletIdentity](https://typedoc.honeycombprotocol.com/functions/_honeycomb_protocol_hive_control.walletIdentity.html) to register a Wallet object ( i.e. [Wallet Adapter](https://solana-labs.github.io/wallet-adapter/) ) as identity.
+
+```typescript
+const wallet = ... // Any Solana Wallet having sign methods
+
+honeycomb.use(
+    walletIdentity(wallet)
+);
+```
+
+## Properties
+
+```typescript
+// Address/PublicKey of the identity (Keypair, Wallet)
+honeycomb.identity().address: PublicKey;
+
+// Signer is the original object of either Keypair or Wallet
+honeycomb.identity().signer: Signer;
+
+// Flag to indicate if currently the signer is guest (default) or not
+honeycomb.identity().isGuest: boolean;
+
+// Auth token for honeycomb auth driver
+honeycomb.identity().authToken: string;
+```
+
+#### API References
+
+- [PublicKey](https://solana-labs.github.io/solana-web3.js/classes/PublicKey.html)
+
+## Authentication
+
+```typescript
+honeycomb.identity().signMessage(message: Uint8Array): Promise<Uint8Array>;
+honeycomb.identity().signTransaction<T = web3.Transaction | web3.VersionedTransaction>(transaction: T): Promise<T>;
+honeycomb.identity().signAllTransactions<T = web3.Transaction | web3.VersionedTransaction>(transactions: T[]): Promise<T[]>;
+
+// Authenticating with honeycomb auth driver, returns auth token
+honeycomb.identity().authenticate(): Promise<string>;
+```
