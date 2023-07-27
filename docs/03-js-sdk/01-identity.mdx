@@ -80,7 +80,4 @@ honeycomb.identity().authToken: string;
 honeycomb.identity().signMessage(message: Uint8Array): Promise<Uint8Array>;
 honeycomb.identity().signTransaction<T = web3.Transaction | web3.VersionedTransaction>(transaction: T): Promise<T>;
 honeycomb.identity().signAllTransactions<T = web3.Transaction | web3.VersionedTransaction>(transactions: T[]): Promise<T[]>;
-
-// Authenticating with honeycomb auth driver, returns auth token
-honeycomb.identity().authenticate(): Promise<string>;
 ```

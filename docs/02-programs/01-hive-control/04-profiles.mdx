@@ -1,0 +1,99 @@
+# Profiles
+
+## Honeycomb User
+
+Honeycomb Users is a centralized user account management system designed to provide a unified identity for all platforms integrated with the Honeycomb ecosystem. With Honeycomb Users, individuals can have a single user account that can be utilized across multiple platforms and applications connected to Honeycomb. This centralized approach ensures a seamless and consistent user experience for individuals using various services within the Honeycomb network.
+
+Through Honeycomb Users, developers can implement a standardized and secure user authentication system, leveraging the powerful cryptographic capabilities of the Solana blockchain. This ensures that user identities and data remain secure and tamper-proof, providing a high level of trust and integrity to the entire ecosystem.
+
+### Handling Users
+
+Honeycomb Users simplifies the process of creating a new user account to the utmost level of ease and convenience. By implementing a straightforward method call, developers can effortlessly implement user registration. This streamlined approach eliminates complexities and minimizes the number of steps required for user registration, making the onboarding experience seamless and user-friendly.
+
+```typescript
+await honeycomb.identity().create().user({
+  username: "", //string
+  name: "", //string
+  bio: "", //string;
+  pfp: "", //string | HoneycombFile;
+});
+const user = await honeycomb.identity().user();
+```
+
+When creating a user with a wallet, the wallet becomes the primary wallet of the user. when registering a wallet with a user (either primary or secondary) a wallet resolver is created that keeps the record to which user the wallet is connected.
+
+```typescript
+const walletResolver = await honeycomb.identity().walletResolver();
+```
+
+#### API References
+
+- [User](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.IdentityUser.html)
+- [Wallet Resolver](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.WalletResolver.html)
+
+## Honeycomb Profiles
+
+One of the key features of Honeycomb Users is the ability for users to have multiple profiles for each platform. This allows users to tailor their identities and preferences specifically for different applications or services. By managing multiple profiles, users can maintain separate sets of data, preferences, and settings based on the context of each platform they interact with.
+
+Even for a single project there can be differentiated with a profile level identity.
+
+```typescript
+const project = honeycomb.project().address;
+const identity = ... // undefined(default), string, PublicKey
+
+await honeycomb.identity().create().profile(
+    project,
+    identity
+);
+const profile = await honeycomb.identity().profile(project, identity);
+```
+
+### Handling Profile
+
+The [IdentityProfile](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.IdentityProfile.html) and [IdentityProfileEntity](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.IdentityProfileEntity.html) classes within Honeycomb provide an effortless and seamless way to interact with user profiles, allowing developers to manage and access user-project-specific data with ease. With straightforward methods and intuitive data structures, developers can create, update, and retrieve profile information without the complexity of traditional identity management systems.
+
+When working with big amount of data a merkle tree is created on chain which verifies the authenticity of off chain data
+
+**Note:** Profiles in Honeycomb are subject to the data configuration specified in the project settings. Only the data fields allowed and defined in the project configuration can be handled and stored in user profiles. Any additional or unauthorized data beyond the defined configuration will not be processed or stored. It is essential to ensure that the project configuration aligns with the intended data handling requirements for profiles.
+
+```typescript
+// Managing profile data
+const data: Map<string, string | string[] | IdentityProfileEntity<ProfileEntityData>> = profile.data;
+
+await profile.add(
+  "Level", // Label of the data
+  "1", // Value must be of type string/string[]
+)
+
+await profile.set(
+  "Level", // Label of the data
+  "2", // Value must be of type string/string[]
+)
+
+await profile.remove("Level")
+
+// Managing big amount of data
+await profile.add(
+  "Achievements",
+  "tree"
+)
+
+const achievements = profile.entity("Achievements");
+
+// Before doing anything you must set the previous data, so it won't corrupt the merkle tree
+achievements.setLeaves(...);
+
+achievements.add(...);
+
+achievements.set(0, ...);
+
+achievements.remove(0);
+
+achievements.verifyProfileData(0);
+```
+
+#### API References
+
+- [Profile](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.IdentityProfile.html)
+- [IdentityProfileEntity](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.IdentityProfileEntity.html)
+- [ProfileEntityData](https://typedoc.honeycombprotocol.com/types/_honeycomb_protocol_hive_control.ProfileEntityData.html)
