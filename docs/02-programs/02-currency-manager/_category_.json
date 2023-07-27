@@ -1,0 +1,10 @@
+{
+  "label": "Currency Manager",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "title": "Currency Manager",
+    "description": "An in-depth overview of our Currency Manager program",
+    "slug": "/programs/currency-manager"
+  }
+}

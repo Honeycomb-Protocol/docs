@@ -1,0 +1,75 @@
+---
+description: The Master Program
+---
+
+# Hive Control
+
+Hive Control is the master program in the Honeycomb Protocol. Designed as the core program to manage all the permissions and delegations of the program authorities throughout Honeycomb.&#x20;
+
+Data is indexed within Hive Control and is then utilized within each program to minimize logic and references that would be required. All programs are required to reference the master program for the authorization of user actions.
+
+Hive Control main functionalities are categorized as the **Project Directory**, **Player Profiles**, and **Fee Authority**.
+
+### Project Directory
+
+The Project Directory is the main directory utilized throughout Honeycomb. All the program authorities and services used within your project will be stored here.
+
+By indexing the Project Directory, the data stored can be referenced throughout each requested instance for game state management. Hive Control is optimized so that each on-chain reference of the indexed data will only require 2 bytes of storage per transaction.
+
+### Player Profiles
+
+A Decentralized-ID (DID) is created for each user as a Player Profile. The users DID will store all interactions and statistics from the program that are utilized. The DID can be referenced to determine any restrictions or constraints for a specific player or group.
+
+### Fee Authority
+
+Every program in Honeycomb will require the authorization of user actions from the master program Hive Control. The fee or monetization structure that is designed for the project can be managed through the Fee Authority by determining if the user actions can be approved in the required reference to the master program, in each transaction. The user actions can only be executed after they are confirmed to have authorized permission.
+
+As each program will reference the Hive Control, a standard fee structure can be implemented to be utilized in all Honeycomb program in order to reduce compute logic.
+
+## Suite of Tools
+
+<table>
+  <thead>
+    <tr>
+      <th width="201.33333333333331">Name</th>
+      <th width="186">Description</th>
+      <th>Programs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Asset Hub</td>
+      <td>Composability Suite</td>
+      <td>
+        <ul>
+          <li>NFT Composer</li>
+          <li>Game Asset Manager</li>
+          <li>Game Token Manager</li>
+          <li>Paywall: Candy Guard</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Nectar Utilities</td>
+      <td>Utility Suite</td>
+      <td>
+        <ul>
+          <li>Staking</li>
+          <li>Missions</li>
+          <li>Raffles</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Buzz Kit</td>
+      <td>Game Dev Suite</td>
+      <td>
+        <ul>
+          <li>Guild Kit</li>
+          <li>Game State Management</li>
+          <li>Match Maker</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
