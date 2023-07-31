@@ -2,10 +2,55 @@ import React from "react";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-import hiveControl from "../../node_modules/@honeycomb-protocol/hive-control/hpl_hive_control.json";
-import { camelToSnakeCase, camelToSpaceCase, toTitleCase } from "../utils";
+import {
+  IDLs,
+  camelToSnakeCase,
+  camelToSpaceCase,
+  toTitleCase,
+} from "../utils";
 
 const ignore = ["initPublicInfo", "setPublicInfo", "setAuthDriver"];
+
+const getInstructions = (idl) =>
+  idl.instructions
+    .map((instruction) => {
+      if (ignore.includes(instruction.name)) return null;
+      return {
+        title:
+          instruction.name[0].toUpperCase() +
+          camelToSpaceCase(instruction.name.slice(1)),
+        description: instruction.docs?.join("") || "",
+        rust_link: `https://docs.rs/${idl.name.replace("_", "-")}/${
+          idl.version
+        }/${idl.name}/${idl.name}/fn.${camelToSnakeCase(
+          instruction.name
+        )}.html`,
+        solita_link: `https://typedoc.honeycombprotocol.com/functions/_honeycomb_protocol_${idl.name.replace(
+          "hpl_",
+          ""
+        )}.create${
+          instruction.name[0].toUpperCase() + instruction.name.slice(1)
+        }Instruction.html`,
+        accounts: instruction.accounts.map((a) => ({
+          ...a,
+          name: a.name[0].toUpperCase() + camelToSpaceCase(a.name.slice(1)),
+          description: a.docs?.join("") || "",
+        })),
+        args: instruction.args.map((a) => {
+          if (typeof a.type === "string") return a;
+
+          return {
+            ...a,
+            type: a.type.defined,
+            link: `https://typedoc.honeycombprotocol.com/types/_honeycomb_protocol_${idl.name.replace(
+              "hpl_",
+              ""
+            )}.${a.type.defined}.html`,
+          };
+        }),
+      };
+    })
+    .filter((x) => !!x);
 
 const instructions: {
   [program: string]: {
@@ -27,45 +72,10 @@ const instructions: {
     }[];
   }[];
 } = {
-  "hive-control": hiveControl.instructions
-    .map((instruction) => {
-      if (ignore.includes(instruction.name)) return null;
-      return {
-        title:
-          instruction.name[0].toUpperCase() +
-          camelToSpaceCase(instruction.name.slice(1)),
-        description: instruction.docs?.join("") || "",
-        rust_link: `https://docs.rs/${hiveControl.name.replace("_", "-")}/${
-          hiveControl.version
-        }/${hiveControl.name}/${hiveControl.name}/fn.${camelToSnakeCase(
-          instruction.name
-        )}.html`,
-        solita_link: `https://typedoc.honeycombprotocol.com/functions/_honeycomb_protocol_${hiveControl.name.replace(
-          "hpl_",
-          ""
-        )}.create${
-          instruction.name[0].toUpperCase() + instruction.name.slice(1)
-        }Instruction.html`,
-        accounts: instruction.accounts.map((a) => ({
-          ...a,
-          name: a.name[0].toUpperCase() + camelToSpaceCase(a.name.slice(1)),
-          description: a.docs?.join("") || "",
-        })),
-        args: instruction.args.map((a) => {
-          if (typeof a.type === "string") return a;
-
-          return {
-            ...a,
-            type: a.type.defined,
-            link: `https://typedoc.honeycombprotocol.com/types/_honeycomb_protocol_${hiveControl.name.replace(
-              "hpl_",
-              ""
-            )}.${a.type.defined}.html`,
-          };
-        }),
-      };
-    })
-    .filter((x) => !!x),
+  "hive-control": getInstructions(IDLs["hive-control"]),
+  "currency-manager": getInstructions(IDLs["currency-manager"]),
+  "nectar-staking": getInstructions(IDLs["nectar-staking"]),
+  "nectar-missions": getInstructions(IDLs["nectar-missions"]),
 };
 
 // {

@@ -2,8 +2,7 @@ import React from "react";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-import hiveControl from "../../node_modules/@honeycomb-protocol/hive-control/hpl_hive_control.json";
-import { camelToSpaceCase } from "../utils";
+import { IDLs, camelToSpaceCase } from "../utils";
 
 const ignoreAccounts = ["PublicInfo"];
 
@@ -64,7 +63,10 @@ const accounts: {
     };
   }[];
 } = {
-  "hive-control": getAccounts(hiveControl),
+  "hive-control": getAccounts(IDLs["hive-control"]),
+  "currency-manager": getAccounts(IDLs["currency-manager"]),
+  "nectar-staking": getAccounts(IDLs["nectar-staking"]),
+  "nectar-missions": getAccounts(IDLs["nectar-missions"]),
 };
 
 // {
