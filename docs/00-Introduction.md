@@ -31,7 +31,7 @@ We believe that the game life-cycle is made up the following core functionalitie
 
 ## The Solution
 
-The aim of Honeycomb protocol is to simplify Solana game development by providing a set of [Programs](programs/) that handle all crucial game lifecycle functions and NFT composability. These Programs are managed with our <mark>Hive Control (Master Program)</mark> that manages the suite of tools that are offered by Honeycomb. All programs are designed to be modular, allowing for customization and integration with one another.
+The aim of Honeycomb protocol is to simplify Solana game development by providing a set of [Programs](services/) that handle all crucial game lifecycle functions and NFT composability. These Programs are managed with our <mark>Hive Control (Master Program)</mark> that manages the suite of tools that are offered by Honeycomb. All programs are designed to be modular, allowing for customization and integration with one another.
 
 1. Asset Hub - manage game assets/tokens and NFT/SFT composability
 2. Nectar Utilities - programs for various in-game utility
