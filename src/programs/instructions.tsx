@@ -276,20 +276,48 @@ export default function Accounts({ program }: { program: string }) {
   return instructions[program].map((i) => (
     <>
       <h2>{i.title}</h2>
-      <Tabs>
-        <TabItem value="description" label="Description">
-          {i.description}
-          <br />{" "}
+      {i.description}
+
+      <h4>References</h4>
+      <ul>
+        <li>
           <a href={i.rust_link} target="_blank">
             Rust Documentation
           </a>
-          <br />{" "}
+        </li>
+        <li>
           <a href={i.solita_link} target="_blank">
             Solita Documentation
           </a>
-        </TabItem>
+        </li>
+      </ul>
+
+      <div style={{ display: "flex", gap: "0.5rem" }}>
+        <div>
+          <h3>Accounts</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Account</th>
+                <th>Decription</th>
+              </tr>
+            </thead>
+            <tbody>
+              {i.accounts.map((account) => (
+                <tr>
+                  <td>
+                    <strong>{snakeToTitleCase(account.name)}</strong>
+                  </td>
+                  <td>{account.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
         {i.args.length ? (
-          <TabItem value="args" label="Arguements">
+          <div>
+            <h3>Arguements</h3>
             <table>
               <thead>
                 <tr>
@@ -316,29 +344,9 @@ export default function Accounts({ program }: { program: string }) {
                 ))}
               </tbody>
             </table>
-          </TabItem>
+          </div>
         ) : null}
-        <TabItem value="accounts" label="Accounts">
-          <table>
-            <thead>
-              <tr>
-                <th>Account</th>
-                <th>Decription</th>
-              </tr>
-            </thead>
-            <tbody>
-              {i.accounts.map((account) => (
-                <tr>
-                  <td>
-                    <strong>{snakeToTitleCase(account.name)}</strong>
-                  </td>
-                  <td>{account.description}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </TabItem>
-      </Tabs>
+      </div>
     </>
   ));
 }

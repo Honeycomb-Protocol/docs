@@ -211,55 +211,50 @@ export default function Accounts({ program }: { program: string }) {
   return accounts[program].map((a) => (
     <>
       <h2>{a.title}</h2>
-      <Tabs>
-        <TabItem value="description" label="Description">
-          {a.description}
-          {a.pda_link ? (
-            <>
-              <br />
-              <a href={a.pda_link} target="_blank">
-                PDA Factory
-              </a>
-            </>
-          ) : null}
-          {a.rust_link ? (
-            <>
-              <br />
-              <a href={a.rust_link} target="_blank">
-                Rust Documentation
-              </a>
-            </>
-          ) : null}
-          {a.solita_link ? (
-            <>
-              <br />
-              <a href={a.solita_link} target="_blank">
-                Solita Documentation
-              </a>
-            </>
-          ) : null}
-        </TabItem>
-        <TabItem value="fields" label="Fields">
-          <table>
-            <thead>
-              <tr>
-                <th>Field</th>
-                <th>Decription</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(a.fields).map(([field, description]) => (
-                <tr>
-                  <td>
-                    <strong>{toTitleCase(field)}</strong>
-                  </td>
-                  <td>{description}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </TabItem>
-      </Tabs>
+      {a.description}
+      <h4>References:</h4>
+      <ul>
+        {a.pda_link ? (
+          <li>
+            <a href={a.pda_link} target="_blank">
+              PDA Factory
+            </a>
+          </li>
+        ) : null}
+        {a.rust_link ? (
+          <li>
+            <a href={a.rust_link} target="_blank">
+              Rust Documentation
+            </a>
+          </li>
+        ) : null}
+        {a.solita_link ? (
+          <li>
+            <a href={a.solita_link} target="_blank">
+              Solita Documentation
+            </a>
+          </li>
+        ) : null}
+      </ul>
+      <h3>Fields</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Decription</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(a.fields).map(([field, description]) => (
+            <tr>
+              <td>
+                <strong>{toTitleCase(field)}</strong>
+              </td>
+              <td>{description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   ));
 }

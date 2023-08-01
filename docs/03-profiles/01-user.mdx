@@ -1,0 +1,30 @@
+# Honeycomb User
+
+Honeycomb Users is a unified user account management system designed to provide a virtual identity for all platforms integrated with the Honeycomb ecosystem. With Honeycomb Users, individuals can have a single user account that can be utilized across multiple platforms and applications connected to Honeycomb. This centralized approach ensures a seamless and consistent user experience for individuals using various services within the Honeycomb network.
+
+Through Honeycomb Users, developers can implement a standardized and secure user authentication system, leveraging the powerful cryptographic capabilities of the Solana blockchain. This ensures that user identities and data remain secure and tamper-proof, providing a high level of trust and integrity to the entire ecosystem.
+
+### Handling Users
+
+Honeycomb Users simplifies the process of creating a new user account to the utmost level of ease and convenience. By implementing a straightforward method call, developers can effortlessly implement user registration. This streamlined approach eliminates complexities and minimizes the number of steps required for user registration, making the onboarding experience seamless and user-friendly.
+
+```typescript
+await honeycomb.identity().create().user({
+  username: "", //string
+  name: "", //string
+  bio: "", //string;
+  pfp: "", //string | HoneycombFile;
+});
+const user = await honeycomb.identity().user();
+```
+
+When creating a user with a wallet, the wallet becomes the primary wallet of the user. when registering a wallet with a user (either primary or secondary) a wallet resolver is created that keeps the record to which user the wallet is connected.
+
+```typescript
+const walletResolver = await honeycomb.identity().walletResolver();
+```
+
+#### API References
+
+- [User](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.IdentityUser.html)
+- [Wallet Resolver](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.WalletResolver.html)

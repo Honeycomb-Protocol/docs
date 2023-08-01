@@ -1,0 +1,10 @@
+{
+  "label": "Profiles",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "title": "Profiles",
+    "description": "An in-depth overview Honeycomb Profiles",
+    "slug": "/profiles"
+  }
+}

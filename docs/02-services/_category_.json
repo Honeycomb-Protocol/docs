@@ -1,10 +1,10 @@
 {
-  "label": "Programs",
+  "label": "Services",
   "position": 2,
   "link": {
     "type": "generated-index",
-    "title": "Programs",
+    "title": "Services",
     "description": "The documentation for our on-chain Solana programs.",
-    "slug": "/programs/"
+    "slug": "/services/"
   }
 }
