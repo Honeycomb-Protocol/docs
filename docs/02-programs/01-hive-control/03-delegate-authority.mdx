@@ -32,6 +32,12 @@ await honeycomb.project().removeDelegation(testDelegateWallet.publicKey, 0);
 
 In the above examples, we demonstrate how to create a delegate authority with specific permissions, add a new delegation to an existing delegate authority, and remove a delegation from an existing delegate authority. These functions can be integrated into your application to effectively manage delegate authorities within the Honeycomb Protocol.
 
+Although before running any instruction through delegated wallet, It is necessary to load the delegate authority account.
+
+```typescript
+await honeycomb.identity().loadDelegateAuthority();
+```
+
 ## Permissions
 
 ### Master Permissions
