@@ -1,1 +1,103 @@
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import Npm from "/src/npm.tsx";
+
 # Getting Started
+
+To start building with the Honeycomb Protocol, ensure you have a suitable development environment set up. You will need JS SDK for web or Rust crate for CPI through Solana program.
+
+### JavaScript
+
+<Npm>@solana/web3.js @honeycomb-protocol/hive-control</Npm>
+
+### Rust
+
+```toml
+hpl-hive-control = { version="0.1.21", features = ["cpi"] }
+```
+
+## Project
+
+The Honeycomb project is a centralized Solana account that serves as the core foundation for all gaming services provided by the Honeycomb protocol. It acts as the central hub for developers, offering a comprehensive platform to build and deploy decentralized gaming applications. By consolidating all gaming services and configurations in one place, the Honeycomb project simplifies the development process, enabling developers to focus on creating immersive gaming experiences without the complexities of managing infrastructure.
+
+To start developing with Honeycomb, create a project with customized configurations.
+
+### JavaScript
+
+```typescript
+const project = await HoneycombProject.new(honeycomb, {
+  // The name of the project
+  name: "Project",
+
+  // The number of mint addresses this project will be handling
+  expectedMintAddresses: 0,
+
+  // The data to store in profiles created for this project
+  profileDataConfigs: [
+    { label: "Level", dataType: { __kind: "SingleValue" } },
+    {
+      label: "Achievements",
+      dataType: {
+        __kind: "Entity",
+        merkleTreeMaxDepth: 14,
+        merkleTreeMaxBufferSize: 64,
+      },
+    }
+  ],
+
+  // (Optional) Since CPI is not allowed for certain tasks
+  // Developers would need to whitelist program IDs that can CPI
+  // To Honeycomb programs for instructions associated with this project
+  allowedPrograms: [
+    new PublicKey(...)
+  ],
+
+  // (Optional) The nft collection addresses associated with this project
+  collections: [
+    new PublicKey(...)
+  ],
+
+
+  // (Optional) The nft creator addresses associated with this project
+  creators: [
+    new PublicKey(...)
+  ],
+
+  // (Optional) Driver wallet will have partial authority to perform some tasks
+  driver: new Keypair(...),
+});
+
+// Register project in honeycomb instance
+honeycomb.use(project);
+
+// later to be accessed through
+honeycomb.project()
+```
+
+#### References
+
+- [HoneycombProject](https://typedoc.honeycombprotocol.com/classes/_honeycomb_protocol_hive_control.HoneycombProject.html)
+- [PublicKey](https://solana-labs.github.io/solana-web3.js/classes/PublicKey.html)
+- [Keypair](https://solana-labs.github.io/solana-web3.js/classes/Keypair.html)
+
+## Deep Dive
+
+### 1. Mint Indexing
+
+(skipped for now)
+
+### 2. Profile Data Configuration
+
+Profiles play a significant role in the Honeycomb Protocol, allowing developers to store and manage user-specific data. Profile Data Configurations define the structure of the data that can be associated with each profile in the Honeycomb Project. Developers can create custom data configurations with different data types, such as SingleValue, MultiValue or Entity, and specify additional parameters like merkle tree depth and buffer size for optimal data storage.
+
+### 3. Interaction with Honeycomb Programs
+
+Throughout the Honeycomb Protocol, interactions with Honeycomb programs are managed securely using Cross-Program Invocation (CPI) mechanisms. Developers can use CPI to call functions across different programs associated with the Honeycomb Project, enabling seamless communication and functionality sharing.
+
+#### Whitelisting Allowed Programs:
+
+To ensure security, developers can whitelist program IDs that are allowed to CPI with Honeycomb programs associated with their project. This provides a controlled environment and prevents unauthorized access to the protocol.
+
+### 4. NFT Criteria
+
+Honeycomb supports the integration of Non-Fungible Tokens (NFTs) by allowing developers to associate NFT collection and creator addresses with their project. This opens up opportunities for integrating unique and valuable digital assets into gaming applications built on the Honeycomb Protocol.

@@ -5,9 +5,9 @@ import TabItem from "@theme/TabItem";
 import {
   IDLs,
   camelToSnakeCase,
-  camelToSpaceCase,
-  toTitleCase,
-} from "../utils";
+  camelToTitleCase,
+  snakeToTitleCase,
+} from "@site/src/utils";
 
 const ignore = ["initPublicInfo", "setPublicInfo", "setAuthDriver"];
 
@@ -16,9 +16,7 @@ const getInstructions = (idl) =>
     .map((instruction) => {
       if (ignore.includes(instruction.name)) return null;
       return {
-        title:
-          instruction.name[0].toUpperCase() +
-          camelToSpaceCase(instruction.name.slice(1)),
+        title: camelToTitleCase(instruction.name),
         description: instruction.docs?.join("") || "",
         rust_link: `https://docs.rs/${idl.name.replace("_", "-")}/${
           idl.version
@@ -33,7 +31,7 @@ const getInstructions = (idl) =>
         }Instruction.html`,
         accounts: instruction.accounts.map((a) => ({
           ...a,
-          name: a.name[0].toUpperCase() + camelToSpaceCase(a.name.slice(1)),
+          name: camelToTitleCase(a.name),
           description: a.docs?.join("") || "",
         })),
         args: instruction.args.map((a) => {
@@ -303,7 +301,7 @@ export default function Accounts({ program }: { program: string }) {
                 {i.args.map((arg) => (
                   <tr>
                     <td>
-                      <strong>{toTitleCase(arg.name)}</strong>
+                      <strong>{snakeToTitleCase(arg.name)}</strong>
                     </td>
                     <td>
                       {arg.link ? (
@@ -332,7 +330,7 @@ export default function Accounts({ program }: { program: string }) {
               {i.accounts.map((account) => (
                 <tr>
                   <td>
-                    <strong>{toTitleCase(account.name)}</strong>
+                    <strong>{snakeToTitleCase(account.name)}</strong>
                   </td>
                   <td>{account.description}</td>
                 </tr>

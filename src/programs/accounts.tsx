@@ -1,8 +1,7 @@
 import React from "react";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
-
-import { IDLs, camelToSpaceCase } from "../utils";
+import { IDLs, camelToTitleCase } from "@site/src/utils";
 
 const ignoreAccounts = ["PublicInfo"];
 
@@ -20,9 +19,7 @@ const getAccounts = (idl: any) =>
         ?.replace("Category: ", "");
 
       return {
-        title:
-          account.name[0].toUpperCase() +
-          camelToSpaceCase(account.name.slice(1)),
+        title: camelToTitleCase(account.name),
         description,
         pda_seeds,
         pda_link: `https://typedoc.honeycombprotocol.com/functions/_honeycomb_protocol_${idl.name.replace(
@@ -41,8 +38,7 @@ const getAccounts = (idl: any) =>
         ).reduce(
           (acc, curr) => ({
             ...acc,
-            [curr.name[0].toUpperCase() + camelToSpaceCase(curr.name.slice(1))]:
-              curr.docs?.join(" ") || "",
+            [camelToTitleCase(curr.name)]: curr.docs?.join(" ") || "",
           }),
           {}
         ),

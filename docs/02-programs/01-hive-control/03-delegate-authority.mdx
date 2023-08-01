@@ -1,0 +1,201 @@
+# Delegate Authority
+
+Delegate Authority is a crucial feature in the Honeycomb Protocol that allows developers to assign partial control and decision-making power to specific entities within a project. By delegating authority, developers can enable designated accounts or wallets to perform certain tasks on behalf of the project, streamlining the management of various operations while maintaining security and control.
+
+Delegate Authority is particularly useful in scenarios where certain actions or modifications need to be executed by authorized parties without granting full administrative access to the entire project. For example, game developers may wish to delegate authority to community moderators, allowing them to manage specific in-game functionalities without compromising the overall project security such as adding new collections or adding new in-game currency.
+
+```typescript
+
+// Create Delegate Account
+const testDelegateWallet = new Keypair(...);
+
+await honeycomb
+  .project()
+  .createDelegateAuthority(testDelegateWallet.publicKey, [
+    {
+      __kind: "Master",
+      permission: MasterProgramPermission.ManageCriterias,
+    },
+  ]);
+
+// Add Delegation
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "AssetHub",
+  permission: AssetHubPermission.ManageAssets,
+  index: 3, // the index of the asset hub service in the honeycomb.project().services array
+});
+
+// Remove Delegation based on index
+await honeycomb.project().removeDelegation(testDelegateWallet.publicKey, 0);
+
+```
+
+In the above examples, we demonstrate how to create a delegate authority with specific permissions, add a new delegation to an existing delegate authority, and remove a delegation from an existing delegate authority. These functions can be integrated into your application to effectively manage delegate authorities within the Honeycomb Protocol.
+
+## Permissions
+
+### Master Permissions
+
+The Master Permissions grant broad control over various aspects of the Hive Control program. Here are some examples of how these permissions can be utilized:
+
+#### 1. ManageCriterias
+
+To manage criterias, which define the NFTs that are related to this project, the designated authority can use the following function:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "Master",
+  permission: MasterProgramPermission.ManageCriterias,
+});
+```
+
+#### 2. ManageServices
+
+Managing services involves overseeing and configuring different services offered by the Honeycomb Protocol. To grant this authority, the following function can be employed:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "Master",
+  permission: MasterProgramPermission.ManageServices,
+});
+```
+
+#### 3. ManageIndexing
+
+The authority to manage indexing allows the delegate to add and remove addresses from the indexing service such as mind indexes. Grant this permission using the following example:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "Master",
+  permission: MasterProgramPermission.ManageIndexing,
+});
+```
+
+#### 4. ManageProfiles
+
+With the `ManageProfiles` permission, the delegate can perform operations related to user profiles, such as updating profiles. Grant this authority using the following code:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "Master",
+  permission: MasterProgramPermission.ManageProfiles,
+});
+```
+
+### Asset Hub Permissions
+
+The Asset Hub Permissions provide control over the Asset Hub service within the Honeycomb Protocol. The Asset Hub is a crucial component that manages assets, including NFTs (Non-Fungible Tokens) and their associated metadata. It enables developers to mint, update, and manage various assets used in decentralized gaming applications. Below are examples of how these permissions can be utilized:
+
+#### 1. ManageAssembler
+
+To manage the assembler, which is responsible for assembling NFTs from individual assets, grant the following permission:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "AssetHub",
+  permission: AssetHubPermission.ManageAssembler,
+});
+```
+
+#### 2. UpdateBlock
+
+Updating blocks involves modifying the attributes and properties of blocks in the assembler. To grant this authority, use the following example:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "AssetHub",
+  permission: AssetHubPermission.UpdateBlock,
+});
+```
+
+#### 3. UpdateBlockDefinition
+
+The authority to update block definitions allows the delegate to modify the blueprint of blocks used to create NFTs. Grant this permission using the following code:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "AssetHub",
+  permission: AssetHubPermission.UpdateBlockDefinition,
+});
+```
+
+#### 4. UpdateNFT
+
+With the `UpdateNFT` permission, the delegate can perform operations related to NFTs generated from assembler, such as updating their metadata and attributes. Grant this authority using the following code:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "AssetHub",
+  permission: AssetHubPermission.UpdateNFT,
+});
+```
+
+#### 5. InitialArtGeneration
+
+The `InitialArtGeneration` permission grants the authority to generate initial art for NFTs when assembled using the assembler. Grant this permission using the following code:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "AssetHub",
+  permission: AssetHubPermission.InitialArtGeneration,
+});
+```
+
+#### 6. ManageAssets
+
+The `ManageAssets` permission allows the delegate to perform various asset-related operations, such as adding and removing assets from the protocol. Grant this permission using the following code:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "AssetHub",
+  permission: AssetHubPermission.ManageAssets,
+});
+```
+
+### Nectar Utility Permissions
+
+The Nectar Utility Permissions grant authority over various utility features related to the Nectar token and staking pools within the Honeycomb Protocol. Below are examples of how these permissions can be utilized:
+
+#### 1. ManageStakingPool
+
+The `ManageStakingPool` permission allows the delegate to manage staking pools, including creating and updating them. Grant this permission using the following code:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "NectarUtility",
+  permission: NectarUtilityPermission.ManageStakingPool,
+});
+```
+
+#### 2. WithdrawStakingPoolRewards
+
+With the `WithdrawStakingPoolRewards` permission, the delegate can withdraw rewards from staking pools. Grant this authority using the following code:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "NectarUtility",
+  permission: NectarUtilityPermission.WithdrawStakingPoolRewards,
+});
+```
+
+#### 3. ManageMissionPool
+
+To manage mission pools, which involve creating and updating pools for mission rewards, grant the following permission:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "NectarUtility",
+  permission: NectarUtilityPermission.ManageMissionPool,
+});
+```
+
+#### 4. WithdrawMissionPoolRewards
+
+The `WithdrawMissionPoolRewards` permission allows the delegate to withdraw rewards from mission pools. Grant this permission using the following code:
+
+```typescript
+await honeycomb.project().addDelegation(testDelegateWallet.publicKey, {
+  __kind: "NectarUtility",
+  permission: NectarUtilityPermission.WithdrawMissionPoolRewards,
+});
+```

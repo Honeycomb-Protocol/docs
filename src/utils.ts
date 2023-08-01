@@ -6,13 +6,13 @@ import nectarMissionsIDL from "../node_modules/@honeycomb-protocol/nectar-missio
 export const camelToSnakeCase = (str) =>
   str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
 
-export const camelToSpaceCase = (str) =>
-  str.replace(/[A-Z]/g, (letter) => ` ${letter}`);
-
-export const toTitleCase = (str) =>
+export const snakeToTitleCase = (str) =>
   str.replaceAll("_", " ").replaceAll(/\w\S*/g, function (txt) {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   });
+
+export const camelToTitleCase = (str) =>
+  snakeToTitleCase(camelToSnakeCase(str));
 
 export const IDLs = {
   "hive-control": hiveControlIDL,
