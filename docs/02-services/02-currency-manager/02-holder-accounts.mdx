@@ -1,0 +1,70 @@
+# Holder Accounts
+
+The Holder Account feature in the Honeycomb Protocol allows users to manage and interact with the currency tokens associated with their account. Holder Accounts provide essential functionalities like minting, burning, transferring tokens, approving delegates, and more. This documentation will guide you through the process of using Holder Accounts for managing currency tokens in the Honeycomb Protocol.
+
+## Create Holder Account
+
+```typescript
+const holderAccount = await honeycomb
+  .currency()
+  .create()
+  .holderAccount(honeycomb.identity().address);
+```
+
+## Mint Currency / Fund Holders account
+
+:::note
+
+Wrapped tokens are just work around for external tokens, they do not have full support of the program. Hence, they cannot be minted through program so they must be funded externally.
+
+:::
+
+### Mint
+
+```typescript
+const holderAccount = await honeycomb.currency().holderAccount();
+await holderAccount.mint(1000_000000000);
+```
+
+### Fund
+
+```typescript
+const holderAccount = await honeycomb.currency().holderAccount();
+await holderAccount.fund(1000_000000000);
+```
+
+## Burn Currency
+
+```typescript
+const holderAccount = await honeycomb.currency().holderAccount();
+await holderAccount.burn(100_000000000);
+```
+
+## Transfer Currency
+
+```typescript
+const randomKey = web3.Keypair.generate();
+const newHolderAccount = await honeycomb
+  .currency()
+  .create()
+  .holderAccount(randomKey.publicKey);
+
+const holderAccount = await honeycomb.currency().holderAccount();
+await holderAccount.transfer(100_000000000, newHolderAccount);
+```
+
+## Delegate authority
+
+```typescript
+const holderAccount = await honeycomb.currency().holderAccount();
+await holderAccount.approveDelegate(10_000000000, honeycomb.identity().address);
+await holderAccount.revokeDelegate();
+```
+
+## Freeze Holder Account
+
+```typescript
+const holderAccount = await honeycomb.currency().holderAccount();
+await holderAccount.setHolderStatus(HolderStatus.Inactive);
+await holderAccount.setHolderStatus(HolderStatus.Active);
+```

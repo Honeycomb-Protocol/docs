@@ -1,1 +1,62 @@
+import Npm from "@site/src/npm.tsx";
+
 # Getting Started
+
+The currency manager works on top of the hive control and SPL Token program.
+
+### JavaScript
+
+```bash
+yarn add @solana/web3.js \
+        @solana/spl-token \
+        @honeycomb-protocol/hive-control \
+        @honeycomb-protocol/currency-manager
+```
+
+### Rust
+
+```toml
+hpl-currency-manager = { version="0.0.38", features = ["cpi"] }
+```
+
+## Dependencies
+
+To integrate the Currency Manager Service and add currencies to your desired project, you would first need to load the specific project to which you wish to add the currencies.
+
+```typescript
+const connection = new Connection(...);
+const honeycomb = new Honeycomb(connection);
+honeycomb.use(
+  await HoneycombProject.fromAddress(connection, new PublicKey(...))
+)
+```
+
+## Creating Currencies
+
+Creating a new currency is a straightforward process, as demonstrated in the following example:
+
+```typescript
+const bonk = await HplCurrency.new(honeycomb, {
+  kind: PermissionedCurrencyKind.Custodial,
+  decimals: 9,
+  name: "Bonk Inu",
+  symbol: "BONK",
+  uri: "https://arweave.net/QPC6FYdUn-3V8ytFNuoCS85S2tHAuiDblh6u3CIZLsw",
+});
+
+// inject in honeycomb for better accessibility
+honeycomb.use(bonk);
+```
+
+## Wrapping Currencies
+
+you also have the option to wrap a token into a currency, allowing you to use existing tokens as in-game currencies. It enables seamless integration of external tokens into the Honeycomb gaming ecosystem.
+
+```typescript
+const bonk = await HplCurrency.new(honeycomb, {
+  mint: new web3.PublicKey("DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"),
+});
+
+// inject in honeycomb for better accessibility
+honeycomb.use(bonk);
+```
