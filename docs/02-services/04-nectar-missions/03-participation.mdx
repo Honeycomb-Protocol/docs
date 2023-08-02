@@ -1,0 +1,43 @@
+# Participation
+
+## Sending NFTs on mission
+
+To participate in the mission, use the `participate()` method of the mission object and pass an array of staked NFTs. Each NFT entry in the array should contain the NFT's metadata, serialization, and additional arguments specific to the mission. In the example below, we send all staked NFTs on the `QuickPost` mission with a specified faction and merkle proof:
+
+:::note
+
+Only staked NFTs can be sent on a mission. Ensure that the NFTs you are trying to participate with are staked before calling the `participate()` method.
+
+:::
+
+```typescript
+const stakedNfts = await honeycomb.staking().fetch().stakedNfts();
+const mission = await honeycomb.missions().mission("QuickPost");
+await mission.participate(
+  stakedNfts.map((x) => ({
+    ...x,
+    serialize: x.serialize,
+    pretty: x.pretty,
+    args: {
+      faction: "faction",
+      merkleProof: factionsMerkleTree.getProofArray(
+        factionsArray.findIndex((y) => y.mint.equals(x.mint))
+      ),
+    },
+  }))
+);
+```
+
+## Recalling NFT from Mission
+
+To recall NFTs from a mission in the Honeycomb Protocol, you first need to fetch the participations using the `participations()` method provided by the Missions service. The `participations()` method retrieves all NFT participations associated with the current user.
+
+Once you have the participations, you can fetch the details of the desired mission using the `mission()` method provided by the Missions service. In the example below, we retrieve the mission named `QuickPost`:
+
+To recall the NFTs from the mission, use the `recall()` method of the mission object and pass the participations array:
+
+```typescript
+const participations = await honeycomb.missions().fetch().participations();
+const mission = await honeycomb.missions().mission("QuickPost");
+await mission.recall(participations);
+```

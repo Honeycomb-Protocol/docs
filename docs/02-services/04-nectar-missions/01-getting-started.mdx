@@ -1,1 +1,69 @@
 # Getting Started
+
+### JavaScript
+
+```bash
+yarn add @solana/web3.js \
+        @solana/spl-token \
+        @honeycomb-protocol/hive-control \
+        @honeycomb-protocol/currency-manager \
+        @honeycomb-protocol/nectar-staking \
+        @honeycomb-protocol/nectar-missions
+```
+
+### Rust
+
+```toml
+hpl-nectar-missions = { version="0.0.34", features = ["cpi"] }
+```
+
+## Dependencies
+
+Before creating a missions pool for your project, it is necessary to load the project and its corresponding currencies. This ensures that the mission pool operates seamlessly with the required configurations and functionalities.
+
+```typescript
+const connection = new Connection(...);
+const honeycomb = new Honeycomb(connection);
+honeycomb.use(
+  await HoneycombProject.fromAddress(connection, new PublicKey(...))
+)
+await findProjectCurrencies(honeycomb.project());
+```
+
+## Creating Mission Pool
+
+You can create a mission pool by following this example:
+
+```typescript
+const project = honeycomb.project();
+const collectionAddress = new PublicKey(...);
+
+const factionsArray = nfts.map((nft) => ({
+  faction: "faction",
+  mint: nft.mint.address,
+}));
+const factionsMerkleTree = new MerkleTree(
+  factionsArray.map(({ faction, mint }) =>
+    Buffer.from([...Buffer.from(faction), ...mint.toBuffer()])
+  )
+);
+
+const missionsPool = await NectarMissions.new(honeycomb, {
+  args: {
+    name: "Sol Patrol Missions",
+    factionsMerkleRoot: factionsMerkleTree.getRootArray(),
+    collections: [
+      collectionAddress
+    ],
+    creators: []
+  },
+  project
+})
+honeycomb.use(missionsPool);
+```
+
+## Deep Dive
+
+### Factions tree
+
+The merkle tree for factions mapped with mints is required so that validations could be applied to factions with provability.

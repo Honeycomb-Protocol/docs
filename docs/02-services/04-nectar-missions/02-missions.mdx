@@ -1,0 +1,74 @@
+# Missions
+
+## Create a Mission
+
+To create a new mission in the Honeycomb Protocol, you can use the `create()` method provided by the Missions service. First, you need to define the required currencies and their funding for the mission pool. For example, in the following code snippet, we create three currencies (bounty, food, and ammo) and fund them in the mission pool's vaults:
+
+```typescript
+const missionsPoolAddress = honeycomb.missions().address;
+const paymentCurrency = honeycomb.currency(...);
+
+const bounty = honeycomb.currency(...);
+const bountyVault = await honeycomb.currency().create().holderAccount(missionsPoolAddress);
+await bountyVault.mint(10_000 * 1_000_000_000);
+
+const food = honeycomb.currency(...);
+const foodVault = await honeycomb.currency().create().holderAccount(missionsPoolAddress);
+await foodVault.mint(10_000 * 1_000_000_000);
+
+const ammo = honeycomb.currency(...);
+const ammoVault = await honeycomb.currency().create().holderAccount(missionsPoolAddress);
+await ammoVault.mint(10_000 * 1_000_000_000);
+```
+
+Once the currencies are funded, you can create the mission using the `create()` method and specifying the mission's details, such as name, cost, duration, and rewards. In the example below, we create a mission named "Quick Patrol" with a cost of 10 paymentCurrency and a duration of 3600 seconds (1 hour). The mission rewards include XP and various currencies (bounty, food, and ammo):
+
+```typescript
+await honeycomb
+  .missions()
+  .create()
+  .mission({
+    name: "Quick Patrol",
+    cost: {
+      address: paymentCurrency.address,
+      amount: 10 * 1_000_000_000,
+    },
+    duration: 3600, // seconds
+    minXp: 0,
+    rewards: [
+      {
+        min: 100,
+        max: 200,
+        rewardType: {
+          __kind: "Xp",
+        },
+      },
+      {
+        min: 100 * 1_000_000_000,
+        max: 1000 * 1_000_000_000,
+        rewardType: {
+          __kind: "Currency",
+          address: bounty.address,
+        },
+      },
+      {
+        min: 10 * 1_000_000_000,
+        max: 100 * 1_000_000_000,
+        rewardType: {
+          __kind: "Currency",
+          address: food.address,
+        },
+      },
+      {
+        min: 10 * 1_000_000_000,
+        max: 20 * 1_000_000_000,
+        rewardType: {
+          __kind: "Currency",
+          address: ammo.address,
+        },
+      },
+    ],
+  });
+```
+
+By following this example, you can easily create and customize missions in the Honeycomb Protocol, allowing you to provide engaging and diverse gaming experiences to your users. The flexibility of the Missions service enables you to configure mission parameters and rewards according to the unique requirements of your gaming application.
