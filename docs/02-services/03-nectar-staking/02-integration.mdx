@@ -1,0 +1,34 @@
+# Integration
+
+## Fetching the NFTs
+
+To interact with the staking pool and perform staking-related operations, you can use the Honeycomb Protocol's Staking service. To get a list of NFTs available for staking or already staked in the pool, use the following methods:
+
+```typescript
+const availableNfts = await honeycomb.staking().fetch().availableNfts();
+const stakedNfts = await honeycomb.staking().fetch().stakedNfts();
+```
+
+## Staking
+
+Staking NFTs in a staking pool is a simple process with the Honeycomb Protocol. Use the following method to stake the available NFTs:
+
+```typescript
+await honeycomb.staking().stake(availableNfts);
+```
+
+## Claiming Rewards
+
+Once NFTs are staked, users become eligible to claim rewards based on their staking duration and other configured multipliers. The Honeycomb Protocol allows users to claim their earned rewards easily:
+
+```typescript
+await honeycomb.staking().claim(stakedNfts);
+```
+
+## Unstaking
+
+When users want to withdraw their staked NFTs along with any earned rewards, they can initiate the unstaking process using the following method:
+
+```typescript
+await honeycomb.staking().unstake(stakedNfts);
+```

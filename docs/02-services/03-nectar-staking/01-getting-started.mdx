@@ -1,1 +1,132 @@
 # Getting Started
+
+### JavaScript
+
+```bash
+yarn add @solana/web3.js \
+        @solana/spl-token \
+        @honeycomb-protocol/hive-control \
+        @honeycomb-protocol/currency-manager \
+        @honeycomb-protocol/nectar-staking
+```
+
+### Rust
+
+```toml
+hpl-nectar-staking = { version="0.0.68", features = ["cpi"] }
+```
+
+## Dependencies
+
+Before creating a staking pool for your project, it is necessary to load the project and its corresponding currencies. This ensures that the staking pool operates seamlessly with the required configurations and functionalities.
+
+```typescript
+const connection = new Connection(...);
+const honeycomb = new Honeycomb(connection);
+honeycomb.use(
+  await HoneycombProject.fromAddress(connection, new PublicKey(...))
+)
+await findProjectCurrencies(honeycomb.project());
+```
+
+## Creating Staking Pool
+
+You can create a staking pool by following this example:
+
+```typescript
+const project = honeycomb.project();
+const currency = honeycomb.currency();
+const collectionAddress = new PublicKey(...);
+const multipliersDecimals = 3;
+const stakingPool = await NectarStaking.new(honeycomb, {
+  args: {
+    name: "Sol Patrol Staking",
+    rewardsPerDuration: 1 * 1_000_000_000, // 1 Currency
+    rewardsDuration: 1, // 1 Second
+    maxRewardsDuration: null, // There will be no more rewards after staked for a certain time
+    minStakeDuration: null, //
+    cooldownDuration: null,
+    resetStakeDuration: false,
+    startTime: Date.now(), // When should the
+    endTime: null,
+    lockType: LockType.Freeze,
+  },
+  project,
+  currency,
+  collections: [
+    collectionAddress
+  ],
+  creators: [],
+  multipliersDecimals,
+  multipliers: [
+    {
+      multiplierType: {
+        __kind: "StakeDuration",
+        minDuration: 15 * 24 * 3600, // 15 days described in seconds
+      },
+      value: 1.5 * multipliersDecimals,
+    },
+    {
+      multiplierType: {
+        __kind: "NFTCount",
+        minCount: 3,
+      },
+      value: 1.4 * multipliersDecimals,
+    },
+    {
+      multiplierType: {
+        __kind: "NFTCount",
+        minCount: 5,
+      },
+      value: 1.8 * multipliersDecimals,
+    },
+    {
+      multiplierType: {
+        __kind: "Creator",
+        creator: new PublicKey(...),
+      },
+      value: 1.2 * multipliersDecimals,
+    },
+    {
+      multiplierType: {
+        __kind: "Collection",
+        collection: new PublicKey(...),
+      },
+      value: 1.2 * multipliersDecimals,
+    },
+  ],
+})
+
+honeycomb.use(stakingPool);
+```
+
+## Deep Dive
+
+### Configuration
+
+1.  **Staking Pool Name:** The name parameter specifies the name of the staking pool, which helps users identify the pool they are participating in.
+2.  **Rewards Per Duration:** The amount of in-game currency aggregated to users for each staking duration.
+3.  **Rewards Duration:** The duration (in seconds) per which the staking pool rewards are aggregated per NFT.
+4.  **Max Rewards Duration:** The maximum duration after which the staking pool stops aggregating rewards.
+5.  **Min Stake Duration:** The minimum duration for NFT to be staked to be eligible for rewards.
+6.  **Cooldown Duration:** The cooldown period is for unstaked NFTs to be staked again.
+7.  **Reset Stake Duration:** This flag determines whether the stake duration is reset after each stake.
+8.  **Start and End Time:** startTime and endTime represent the timestamps when the staking pool becomes active and inactive, respectively.
+9.  **Lock Type:** The lockType parameter determines the type of lock applied to staked NFTs. In this example, the lock type is set to `LockType.Freeze`, which means that staked NFTs are frozen during the staking period. `LockType.Custody` allows the program to take the custoday of the NFT instead of just freezing.
+10. **Collections and Creators:** The collections and creator parameter allows you to associate specific NFT collections or their creators with the staking pool.
+
+### Multipliers
+
+In the Honeycomb Protocol, staking pools support various types of multipliers, each enhancing the staking rewards based on specific criteria. Since Solana does not natively support floating-point numbers, we handle multiplier values using fixed-point arithmetic. To achieve this, we set the `multipliersDecimals` parameter, which represents the number of decimal places to use for the multiplier values. Consequently, the multiplier values are stored and calculated as integers with an implicit decimal point.
+
+For instance, if a multiplier value is represented as `multiplier * 10**decimals`, setting `multipliersDecimals: 3` means the multiplier values will have three decimal places. For example:
+
+- A multiplier value of `1400` with `multipliersDecimals: 3` would effectively represent `1.400`.
+- Similarly, a multiplier value of `1800` with `multipliersDecimals: 3` would represent `1.800`.
+
+#### Types of Multipliers
+
+1. **Stake Duration:** This type of multiplier rewards users based on the duration for which they stake their tokens. Longer staking periods can lead to higher rewards, incentivizing users to lock their tokens for extended periods.
+2. **NFT Cout:** Users who hold a certain number of NFTs can receive additional rewards through this multiplier. The more NFTs they possess, the higher their staking rewards become.
+3. **Creator:** Holding NFTs from specific creators can entitle users to extra rewards with this type of multiplier. Certain creators may be designated as special, and staking their NFTs can unlock additional benefits.
+4. **Collection:** Holding NFTs from specific collections can entitle users to extra rewards with this type of multiplier. Certain collections may be designated as special, and staking their NFTs can unlock additional benefits.
