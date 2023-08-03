@@ -1,7 +1,29 @@
 # Overview
 
-The Currency Manager Service within the Honeycomb Protocol plays a pivotal role in managing and orchestrating in-game currencies for various gaming applications built on the Solana blockchain. This essential service empowers developers to seamlessly integrate and control in-game currencies, providing players with a diverse and engaging gaming economy.
+The Currency Manager in the Honeycomb Protocol introduces an innovative on-chain permissioned token system for in-game currencies on the Solana blockchain, leveraging the SPL (Solana Program Library) Token standard and the freeze authority attribute. This powerful mechanism allows for the creation and management of various in-game currencies, providing a secure and controlled environment for DeFi operations and managing in-game economies.
 
-## Integration with Gaming Mechanics
+## Leveraging the SPL Token Standard
 
-The Currency Manager Service seamlessly integrates with other gaming mechanisms and services offered within the Honeycomb Protocol. Developers can link in-game currencies to various in-game activities, rewards, achievements, and more, adding depth and strategy to the gaming experience.
+The SPL Token standard on the Solana blockchain is equivalent to Ethereum's ERC20 token standard, offering a robust and scalable protocol for issuing tokens. The Currency Manager harnesses the SPL Token standard to create and manage different types of in-game currencies, each tailored to the specific needs of gaming applications.
+
+## Freeze Authority for Enhanced Control
+
+One of the key features of the SPL Token standard is the 'freeze authority', which grants an assigned authority the ability to freeze or unfreeze the state of an account. The Currency Manager utilizes this freeze authority to construct a permissioned token system, introducing an additional layer of control and security to in-game currency management.
+
+## User Authority and Guardial Oversight
+
+In the Currency Manager, each user holds an authority to perform transactions, including earning, spending, and trading in-game currencies. However, every transaction requires approval from a system-wide authority known as 'Guardial'. This architecture ensures a high level of control and monitoring over in-game currency transactions, making it ideal for managing in-game economies.
+
+## Transaction Sandwiching for Enhanced Security
+
+The Currency Manager employs a unique 'transaction sandwiching' approach to enhance security. Each user transaction is embedded between unfreeze and freeze instructions, creating a transaction 'sandwich'. This temporary unfreezing of the user's account allows the specific transaction to occur under the oversight of the Currency Manager, ensuring a secure and controlled process.
+
+## Primary Earning, Spending, and Trading
+
+For primary earning, spending, and trading of in-game currencies, users conduct these actions through the Currency Manager. User accounts are temporarily unfrozen to permit the transactions, and once completed, they are promptly re-frozen. This approach ensures that all in-game currency transactions are closely monitored and regulated by the system-wide authority.
+
+## DeFi Lending/Borrowing with Controlled Transactions
+
+DeFi-like operations, such as lending/borrowing of in-game currencies, also occur through the Currency Manager. Similar to other transactions, user accounts are temporarily unfrozen during the lending/borrowing process and re-frozen after the actions are completed. This controlled approach ensures the utmost security and integrity of DeFi operations within the gaming ecosystem.
+
+By leveraging the SPL Token standard's freeze authority and implementing the transaction sandwich approach, the Currency Manager provides a secure, scalable, and efficient permissioned token mechanism for managing in-game currencies. It is particularly suited for gaming environments where transaction control, regulation, and monitoring are paramount to maintain a balanced and thriving in-game economy.
