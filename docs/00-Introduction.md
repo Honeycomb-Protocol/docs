@@ -5,48 +5,52 @@ slug: /
 
 # Introduction
 
-## What is Honeycomb?
+## What is Honeycomb
 
-Honeycomb is a platform built on the Solana blockchain that streamlines the process for game developers to integrate NFTs, semi-fungible tokens, and in-game assets into web3 games. It enhances the gaming experience on the web3 platform through the use of Solana's efficient and secure network. Honeycomb also provides a Guild-Kit to support the creation and management of in-game web3 guilds, and aims to solve game development issues with its web3 matchmaking system and on-chain game state management system.
+Honeycomb is a protocol built on the Solana blockchain that streamlines the process for game developers and studios to integrate and build web3 games. We utilize Solana’s efficient and secure network to bring full compossibility of in-game assets and data on the Solana Virtual Machine (SVM).
 
 This platform is compatible with all of the [Metaplex](https://docs.metaplex.com/) NFT standards, including the Programmable Asset Class.
 
 ## The Problem
 
-The Honeycomb protocol is being built for the Solana NFT gaming community by the development team [Solana Studio](https://www.solana.studio/). While working as the devs for various gaming related projects on the Solana network, it became clear that there were no developer friendly tools for Solana game-dev on the infrastructure level.\
-\
-We believe that the game life-cycle is made up the following core functionalities:
+Currently the Solana game developer experience is extremely fragmented, requires a deep knowledge of blockchain development and is not scalable for mainstream adoption due to the on-chain fees for a large player base.
 
-- Player profiles
-- Fee structure
-- Mutable digital assets
-- Issue and manage digital assets
-- Game tokens (custodial and non-custodial)
-- Idle player rewards (Staking)
-- Quests (Missions)
-- Loot Boxes (Raffles)
-- Guild or Party
-- Match Making
-- Game State Management
+Honeycomb is built for the Solana NFT gaming ecosystem by the development team [Tumi Labs](https://tumilabs.com/), to an extremely user-friendly gaming infrastructure development toolkit. Through our experience with the new genre of games on web3, we’ve determined that the game life-cycle is made of the following core functions:
+
+- Idle player rewards (staking)
+- Quests (missions)
+- Loot Boxes or RNG Prizes (raffles)
+- Guilds or Party
+- Game Tokens (custodial and non-custodial)
+- Mutable Digital Assets
+- Issue and Manage Digital Assets
+- Player Profiles
+- Fee Structure
 
 ## The Solution
 
-The aim of Honeycomb protocol is to simplify Solana game development by providing a set of [Programs](services/) that handle all crucial game lifecycle functions and NFT composability. These Programs are managed with our <mark>Hive Control (Master Program)</mark> that manages the suite of tools that are offered by Honeycomb. All programs are designed to be modular, allowing for customization and integration with one another.
+Honeycomb provides a suite of on-chain [Programs](services/) and state-compression tools that handle all crucial game lifecycle functions and compossibility with the SVM. All programs are designed to be interoperable, modular and are packed with tons of different settings to allow for customization to meet your game development needs.
 
-1. Asset Hub - manage game assets/tokens and NFT/SFT composability
-2. Nectar Utilities - programs for various in-game utility
-3. Buzz Kit - guilds, match-making and game-state management
+Due to the complexity of on-chain development, we built an SDK so that you can start building games on Solana with almost no web3 experience. Q1 2024 we will be releasing UI kits that will allow developers to quickly integrate Solana.
 
-## Preface
+All programs are managed with our Master Program: Hive Control – that manages the project directory, all player profiles and the optional fee structure for your game. Our tools are broken into the following three categories:
 
-With over 12 months of development experience on the Solana network, our team ([Solana.Studio](https://www.solana.studio/)) will continue to create open-source tools and infrastructure for the Solana ecosystem. Our latest release was the first [Candy Machine v3 UI](https://github.com/Solana-Studio/Candy-Machine-V3-UI), which includes all candy-guards.&#x20;
+1. Asset Hub
+2. Nectar Utilities
+3. Buzz Kit
 
-We've decided for the recent Sandstorm Hackathon that we would begin designing and building an infrastructure level protocol with a focus on NFT composability. We are very excited to announce that we received first place in the gaming track for the hackathon!
-https://twitter.com/LamportDAO/status/1621787925515214856?s=20
+## State Compression
 
-This protocol will be continued to be developed and utilized as the infrastructure for a personal project we are building called [Sol Patrol](https://twitter.com/SolPatrolNFT).&#x20;
-https://docs.solpatrol.io
+Q2 2023 Solana Labs released state-compression, this would significantly reduce the cost of minting NFTs on SVM. Our team quickly saw the potential of creating scalable solutions using state-compression outside of just compressed-NFTs.
+
+State-compression is currently being tested on one of our main programs: [Player Profiles](https://twitter.com/honeycomb_prtcl/status/1635210662917062656?s=20)
+
+Our benchmarks for Player Profiles prior to state compression had a player fee of 0.0118 SOL but after state-compression it was reduced to 0.000009 SOL for each player (~1300x reduction in costs).
+
+Due to the lack of dev-tools for state-compression, our team has built a library of Proc Macros in Rust for the Anchor Lang that will allow our developers to integrate state-compression throughout all of the Honeycomb Protocol on-chain programs. All of our state-compression progress throughout 2023 is planned to be generalized and open-sourced for the Solana ecosystem. We have recently partnered with [SHYFT](https://shyft.to/) to operate our high performance indexing infrastructure directly on their bare-metal RPC servers. This will allow for the entire Solana ecosystem to build scalable solutions that previously was not possible due to various on-chain fees.
 
 ## Github
 
 https://github.com/honeycomb-protocol
+
+All Honeycomb on-chain programs will be open-sourced but will continue to be maintained by Tumi Labs and ecosystem developers. Currently the github is only available on a resquest basis. Please contact us at hello@tumilabs.com for access.
