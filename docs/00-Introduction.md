@@ -33,11 +33,14 @@ Honeycomb provides a suite of on-chain [Programs](services/) and state-compressi
 
 Due to the complexity of on-chain development, we built an SDK so that you can start building games on Solana with almost no web3 experience. Q1 2024 we will be releasing UI kits that will allow developers to quickly integrate Solana.
 
-All programs are managed with our Master Program: [Hive Control](concepts/hive-control/) – that manages the project directory, all player profiles and the optional fee structure for your game. Our tools are broken into the following three categories:
+All programs are managed with our Master Program: [Hive Control](concepts/hive-control/) – that manages the project directory, all player profiles and the optional fee structure for your game.
 
-1. [Asset Hub](concepts/asset-hub)
-2. [Nectar Utilities](concepts/nectar-utilities)
-3. [Buzz Kit](concepts/buzz-kit)
+Our tools are broken into the following categories:
+
+1. [Hive Control](concepts/hive-control/)
+2. [Asset Hub](concepts/asset-hub)
+3. [Nectar Utilities](concepts/nectar-utilities)
+4. [Buzz Kit](concepts/buzz-kit)
 
 ## State Compression (Scalability)
 

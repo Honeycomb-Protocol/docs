@@ -18,7 +18,9 @@ By indexing the Project Directory, the data stored can be referenced throughout 
 
 ### Player Profiles
 
-A Decentralized-ID (DID) is created for each user as a Player Profile. The users DID will store all interactions and statistics from the program that are utilized. The DID can be referenced to determine any restrictions or constraints for a specific player or group.
+[SOL-DID](https://github.com/identity-com/sol-did) or Decentralized-ID is created for each user as a [Player Profile](/profiles). The users DID will store all interactions and statistics from the program that are utilized. The DID can be referenced to determine any restrictions or constraints for a specific player or group.
+
+By deploying a game on Honeycomb, a new Player Profile is created for each user. The data for each Player Profile is parsed by listening to new events that are emitted from Honeycomb programs using Honeycomb Drivers. The Drivers automatically are deployed when building on Honeycomb and will stream all player data (can be accessed by our API) for developers to create custom solutions (i.e., leaderboards, player statistics and achievements).
 
 ### Fee Authority
 
