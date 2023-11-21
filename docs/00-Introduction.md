@@ -47,10 +47,10 @@ State-compression is currently being tested on one of our main programs: [Player
 
 Our benchmarks for Player Profiles prior to state compression had a player fee of 0.0118 SOL but after state-compression it was reduced to 0.000009 SOL for each player (~1300x reduction in costs).
 
-Due to the lack of dev-tools for state-compression, our team has built a library of Proc Macros in Rust for the Anchor Lang that will allow our developers to integrate state-compression throughout all of the Honeycomb Protocol on-chain programs. All of our state-compression progress throughout 2023 is planned to be generalized and open-sourced for the Solana ecosystem. We have recently partnered with [SHYFT](https://shyft.to/) to operate our high performance indexing infrastructure directly on their bare-metal RPC servers. This will allow for the entire Solana ecosystem to build scalable solutions that previously was not possible due to various on-chain fees.
+Due to the lack of dev-tools for state-compression, our team has built a library of [Proc Macros](https://doc.rust-lang.org/reference/procedural-macros.html) in Rust for the [Anchor Lang](https://www.anchor-lang.com/) that will allow our developers to integrate state-compression throughout all of the Honeycomb Protocol on-chain programs. All of our state-compression progress throughout 2023 is planned to be generalized and open-sourced for the Solana ecosystem. We have recently partnered with [SHYFT](https://shyft.to/) to operate our high performance indexing infrastructure directly on their bare-metal RPC servers. This will allow for the entire Solana ecosystem to build scalable solutions that previously was not possible due to various on-chain fees.
 
 ## Github
 
 https://github.com/honeycomb-protocol
 
-All Honeycomb on-chain programs will be open-sourced but will continue to be maintained by Tumi Labs and ecosystem developers. Currently the github is only available on a resquest basis. Please contact us at hello@tumilabs.com for access.
+All Honeycomb on-chain programs will be open-sourced in the near future. Access to the repo is only available on a request basis: hello@tumilabs.com
