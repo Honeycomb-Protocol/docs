@@ -39,15 +39,15 @@ All programs are managed with our Master Program: Hive Control – that manages 
 2. Nectar Utilities
 3. Buzz Kit
 
-## State Compression
+## State Compression (Scalability)
 
 Q2 2023 Solana Labs released state-compression, this would significantly reduce the cost of minting NFTs on SVM. Our team quickly saw the potential of creating scalable solutions using state-compression outside of just compressed-NFTs.
 
-State-compression is currently being tested on one of our main programs: [Player Profiles](https://twitter.com/honeycomb_prtcl/status/1635210662917062656?s=20)
+State-compression is currently being tested on one of our main programs within Hive Control: [Player Profiles](https://twitter.com/honeycomb_prtcl/status/1635210662917062656?s=20)
 
-Our benchmarks for Player Profiles prior to state compression had a player fee of 0.0118 SOL but after state-compression it was reduced to 0.000009 SOL for each player (~1300x reduction in costs).
+Our benchmarks for Player Profiles prior to state compression had a player fee of 0.0118 SOL but after state-compression it was reduced to 0.000009 SOL (~1300x reduction in costs). We will be implementing state-compression across all of our programs in Q4 2023 - Q1 2024 in order to create the first scallable gaming solution directly on SVM.
 
-Due to the lack of dev-tools for state-compression, our team has built a library of [Proc Macros](https://doc.rust-lang.org/reference/procedural-macros.html) in Rust for the [Anchor Lang](https://www.anchor-lang.com/) that will allow our developers to integrate state-compression throughout all of the Honeycomb Protocol on-chain programs. All of our state-compression progress throughout 2023 is planned to be generalized and open-sourced for the Solana ecosystem. We have recently partnered with [SHYFT](https://shyft.to/) to operate our high performance indexing infrastructure directly on their bare-metal RPC servers. This will allow for the entire Solana ecosystem to build scalable solutions that previously was not possible due to various on-chain fees.
+Due to the lack of dev-tools for state-compression, our team has built a library of [Proc Macros](https://doc.rust-lang.org/reference/procedural-macros.html) in Rust for the [Anchor Lang](https://www.anchor-lang.com/) which allows our team to integrate state-compression throughout all of Honeycomb Protocol. Our state-compression progress is planned to be generalized and open-sourced for the Solana ecosystem. We have recently partnered with [SHYFT](https://shyft.to/) to operate our high performance indexing infrastructure directly on their bare-metal RPC servers. This will allow for the entire Solana ecosystem to build scalable solutions that previously was not possible due to various on-chain fees.
 
 ## Github
 
