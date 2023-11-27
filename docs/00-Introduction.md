@@ -15,7 +15,7 @@ This platform is compatible with all of the [Metaplex](https://docs.metaplex.com
 
 Currently the Solana game developer experience is extremely fragmented, requires a deep knowledge of blockchain development and is not scalable for mainstream adoption due to the on-chain fees for a large player base.
 
-Honeycomb is built for the Solana NFT gaming ecosystem by the development team [Tumi Labs](https://tumilabs.com/), to an extremely user-friendly gaming infrastructure development toolkit. Through our experience with the new genre of games on web3, we’ve determined that the game life-cycle is made of the following core functions:
+Honeycomb is a infrastructure development toolkit for the Solana gaming ecosystem by the development team [Tumi Labs](https://tumilabs.com/). Through our experience with the new genre of games on web3, we’ve determined that the game life-cycle is made of the following core functions:
 
 - Idle player rewards (staking)
 - Quests (missions)
