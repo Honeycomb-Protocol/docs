@@ -7,7 +7,7 @@ slug: /
 
 ## What is Honeycomb
 
-Honeycomb is a protocol built on the Solana blockchain that streamlines the process for game developers and studios to integrate and build web3 games. We utilize Solana’s efficient and secure network to bring full compossibility of in-game assets and data on the Solana Virtual Machine (SVM).
+Honeycomb is an infrastructure protocol that provides a set of on-chain programs and SDKs to enable game studios and developers to scale web3 games to main-stream adoption on the Solana blockchain.
 
 This platform is compatible with all of the [Metaplex](https://docs.metaplex.com/) Non-Fungible Token (NFT) standards, including the Programmable Asset Class (pNFT), Compressed NFTs (cNFT) and Semi-Fungible Tokens (SFT).
 
