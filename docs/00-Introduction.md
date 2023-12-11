@@ -11,6 +11,8 @@ Honeycomb is an infrastructure protocol that provides a set of on-chain programs
 
 This platform is compatible with all of the [Metaplex](https://docs.metaplex.com/) Non-Fungible Token (NFT) standards, including the Programmable Asset Class (pNFT), Compressed NFTs (cNFT) and Semi-Fungible Tokens (SFT).
 
+Check out the recent [Helius](https://www.helius.dev/) blog on Honeycomb Protocol: https://www.helius.dev/blog/gaming-how-solana-is-changing-the-playfield#honeycomb
+
 ## The Problem
 
 Currently the Solana game developer experience is extremely fragmented, requires a deep knowledge of blockchain development and is not scalable for mainstream adoption due to the on-chain fees for a large player base.
