@@ -3,7 +3,7 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
-
+require('dotenv/config');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Honeycomb Protocol Docs",
@@ -142,7 +142,12 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-        additionalLanguages: ["rust"],
+        additionalLanguages: ['rust'],
+      },
+      algolia: {
+        apiKey: process.env.ALGOLIA_API_KEY,
+        appId: process.env.ALGOLIA_APP_ID,
+        indexName: process.env.ALGOLIA_INDEX_NAME,
       },
     }),
 };
