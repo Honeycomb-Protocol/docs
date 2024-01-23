@@ -7,7 +7,7 @@ slug: /brand
 ### Version: Jan '24
 ![Main](/main.png)
 
-## Color Pallet
+## Color Palette
 ![Pallet](/pallet.png)
 
 ## Logo Design
