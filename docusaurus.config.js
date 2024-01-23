@@ -12,7 +12,7 @@ const config = {
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon-default.svg.",
+  favicon: "img/favicon.ico",
   organizationName: "honeycomb-protocol",
   projectName: "docs",
 
